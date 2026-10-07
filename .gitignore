@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs & caches
+dist/
+build/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Environment variables (allow .env.example)
+.env
+.env*.local
+.env.production
+.env.development
+.env.test
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Prisma generated client
+apps/api/src/generated/
+
+# Tauri & Rust build artifacts
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/
+
+# Expo / Mobile artifacts
+.expo/
+.expo-shared/
+
+# Operating System & Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo

@@ -1,0 +1,24 @@
+{
+  "name": "pharma-erp",
+  "private": true,
+  "packageManager": "pnpm@10.9.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=!@pharma/desktop --filter=!@pharma/mobile",
+    "dev:desktop": "pnpm --filter @pharma/desktop dev",
+    "dev:mobile": "pnpm --filter @pharma/mobile start",
+    "build": "turbo run build --filter=!@pharma/desktop --filter=!@pharma/mobile",
+    "typecheck": "turbo run typecheck",
+    "db:up": "docker compose up -d",
+    "db:generate": "pnpm --filter @pharma/api prisma:generate",
+    "db:migrate": "pnpm --filter @pharma/api prisma:migrate",
+    "db:studio": "pnpm --filter @pharma/api prisma:studio",
+    "build:desktop": "pnpm --filter @pharma/desktop build"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.0"
+  }
+}
