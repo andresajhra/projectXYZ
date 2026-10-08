@@ -91,7 +91,7 @@ export class AuthService {
 
   async register(input: RegisterInput): Promise<AuthResponse> {
     const email = input.email.toLowerCase();
-    if (await this.prisma.user.findUnique({ where: { email } })) throw new ConflictException("Email already registered");
+    if (await this.prisma.user.findFirst({ where: { email } })) throw new ConflictException("Email already registered");
 
     const user = await this.createTenantWithOwner({
       tenantName: input.tenantName,
@@ -104,7 +104,7 @@ export class AuthService {
   }
 
   async login(input: LoginInput): Promise<AuthResponse> {
-    const user = await this.prisma.user.findUnique({ where: { email: input.email.toLowerCase() } });
+    const user = await this.prisma.user.findFirst({ where: { email: input.email.toLowerCase() } });
     const ok = user?.passwordHash && (await bcrypt.compare(input.password, user.passwordHash));
     if (!user || !ok || !user.isActive) throw new UnauthorizedException("Invalid credentials");
     return this.issue(user.id);
