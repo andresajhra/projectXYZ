@@ -44,16 +44,24 @@ pnpm dev:mobile         # starts the Expo development server (scan QR with Expo 
 
 ## Core Architecture Goals & Design Principles
 
-1. **Single Source of Truth (`@pharma/contracts`)**:
+> **Major Rule — Keep It Simple (Less is More):**
+> Prioritize simplicity and pragmatic solutions above all else. Avoid premature abstractions, speculative generalizations, and over-engineering. Less code and fewer moving parts mean fewer points of failure, lower cognitive load, and easier maintainability across all platforms.
+
+1. **Keep It Simple & Less is More (KISS)**:
+   - Prefer straightforward, readable implementations over complex architectural layers or unnecessary abstractions.
+   - Build strictly for current requirements rather than hypothetical future needs.
+   - Fewer dependencies and fewer lines of code reduce bugs and keep maintenance friction low.
+
+2. **Single Source of Truth (`@pharma/contracts`)**:
    - Every Zod schema, DTO type, and permission key is defined in `packages/contracts` and imported across backend, web, desktop, and mobile.
    - Eliminates contract drift, duplicated validation logic, and type mismatches.
 
-2. **Unified Cross-Platform Strategy**:
+3. **Unified Cross-Platform Strategy**:
    - **Web (`apps/web`)**: Cloud management dashboard, backoffice reporting, and browser POS.
    - **Desktop (`apps/desktop`)**: Stationed cashier counters. Reuses the Web UI inside a native Tauri 2 container with direct OS-level access to thermal receipt printers (ESC/POS), cash drawer kickers, and weighing scales.
    - **Mobile (`apps/mobile`)**: Handheld warehouse barcode scanning, field deliveries, and portable offline POS terminals.
 
-3. **Multi-Tenancy & Default-Deny Security**:
+4. **Multi-Tenancy & Default-Deny Security**:
    - Strict tenant isolation (`tenantId` on all operational records).
    - All API endpoints require a valid JWT unless explicitly decorated with `@Public()`.
    - Granular RBAC permissions enforced on the backend with `@RequirePermissions(...)` and checked on clients with `can('permission.key')`.
