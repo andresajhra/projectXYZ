@@ -3,10 +3,14 @@
   "compilerOptions": {
     "jsx": "react-native",
     "moduleResolution": "bundler",
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "nativewind-env.d.ts"
   ]
 }
