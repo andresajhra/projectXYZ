@@ -6,9 +6,10 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "turbo run dev --filter=!@pharma/desktop --filter=!@pharma/mobile",
+    "dev:web": "pnpm --filter @pharma/web dev",
+    "dev:api": "pnpm --filter @pharma/api dev",
     "dev:desktop": "pnpm --filter @pharma/desktop dev",
-    "dev:mobile": "pnpm --filter @pharma/mobile start",
+    "dev:mobile": "pnpm --filter @pharma/mobile tunnel",
     "build": "turbo run build --filter=!@pharma/desktop --filter=!@pharma/mobile",
     "typecheck": "turbo run typecheck",
     "db:up": "docker compose up -d",

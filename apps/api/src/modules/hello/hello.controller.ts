@@ -1,14 +1,12 @@
 import { Controller, Get } from "@nestjs/common";
 import type { HelloResponse } from "@pharma/contracts";
-import { Public } from "../../common/auth.decorators";
 import { PrismaService } from "../../prisma/prisma.service";
 
-@Controller("hello")
+@Controller()
 export class HelloController {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Public()
-  @Get()
+  @Get(["", "hello"])
   async hello(): Promise<HelloResponse> {
     let database: HelloResponse["database"] = "up";
     try {
@@ -16,6 +14,11 @@ export class HelloController {
     } catch {
       database = "down";
     }
-    return { message: "Hello from NestJS", service: "@pharma/api", time: new Date().toISOString(), database };
+    return {
+      message: "Hello from NestJS",
+      service: "@pharma/api",
+      time: new Date().toISOString(),
+      database,
+    };
   }
 }
